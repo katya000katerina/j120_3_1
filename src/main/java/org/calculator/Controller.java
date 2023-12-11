@@ -59,5 +59,6 @@ public class Controller {
         currentNumber = "";
         model.clear();
         start = true;
+        isBinaryOperatorChosen = false;
     }
 }
