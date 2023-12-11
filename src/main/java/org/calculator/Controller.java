@@ -10,6 +10,7 @@ public class Controller {
     @FXML
     private Label screen;
     private String currentNumber = "";
+    private boolean isBinaryOperatorChosen;
     private boolean start = true;
 
     @FXML
@@ -21,20 +22,34 @@ public class Controller {
         String value = ((Button) event.getSource()).getText();
         currentNumber += value;
         screen.setText(screen.getText() + value);
+        isBinaryOperatorChosen = false;
     }
 
     @FXML
     public void processOperators(ActionEvent event) {
+        if (currentNumber.isBlank() && !isBinaryOperatorChosen) {
+            return;
+        }
         String value = ((Button) event.getSource()).getText();
+        if (isBinaryOperatorChosen) {
+            model.removeLastOperatorFromList();
+            String currentText = screen.getText();
+            screen.setText(currentText.substring(0, currentText.length() - 1) + value);
+        } else {
+            model.addNumberToList(Float.parseFloat(currentNumber));
+            currentNumber = "";
+            screen.setText(screen.getText() + value);
+        }
+        isBinaryOperatorChosen = true;
         model.addOperatorToList(value);
-        model.addNumberToList(Float.parseFloat(currentNumber));
-        currentNumber = "";
-        screen.setText(screen.getText() + value);
     }
 
     @FXML
     public void processEqualsAndClear(ActionEvent event) {
         String value = ((Button) event.getSource()).getText();
+        if (currentNumber.isBlank() && value.equals("=")) {
+            return;
+        }
         if (value.equals("=")) {
             model.addNumberToList(Float.parseFloat(currentNumber));
             screen.setText(String.valueOf(model.getResult()));

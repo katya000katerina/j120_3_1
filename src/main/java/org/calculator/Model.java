@@ -15,6 +15,10 @@ public class Model {
         operators.add(op);
     }
 
+    public void removeLastOperatorFromList() {
+        operators.remove(operators.size() - 1);
+    }
+
     public void clear() {
         numbers.clear();
         operators.clear();
