@@ -20,6 +20,9 @@ public class Controller {
             start = false;
         }
         String value = ((Button) event.getSource()).getText();
+        if (currentNumber.isBlank() && value.equals(".")){
+            return;
+        }
         currentNumber += value;
         screen.setText(screen.getText() + value);
         isBinaryOperatorChosen = false;
