@@ -20,11 +20,19 @@ public class Controller {
             start = false;
         }
         String value = ((Button) event.getSource()).getText();
-        if (currentNumber.isBlank() && value.equals(".")){
+        if (currentNumber.isBlank() && value.equals(".")) {
             return;
         }
-        currentNumber += value;
-        screen.setText(screen.getText() + value);
+        if (currentNumber.equals("0") && value.equals("0")) {
+            return;
+        }
+        if (currentNumber.equals("0") && !value.equals(".")) {
+            currentNumber = value;
+            screen.setText(getCurrentTextWithoutLastZero() + value);
+        } else {
+            currentNumber += value;
+            screen.setText(screen.getText() + value);
+        }
         isBinaryOperatorChosen = false;
     }
 
@@ -63,5 +71,10 @@ public class Controller {
         model.clear();
         start = true;
         isBinaryOperatorChosen = false;
+    }
+
+    private String getCurrentTextWithoutLastZero() {
+        String currentText = screen.getText();
+        return currentText.substring(0, currentText.length() - 1);
     }
 }
