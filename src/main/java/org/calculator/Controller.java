@@ -14,7 +14,7 @@ public class Controller {
     private boolean start = true;
 
     @FXML
-    public void processNumbers(ActionEvent event) {
+    private void processNumbers(ActionEvent event) {
         if (start) {
             screen.setText("");
             start = false;
@@ -37,7 +37,7 @@ public class Controller {
     }
 
     @FXML
-    public void processOperators(ActionEvent event) {
+    private void processOperators(ActionEvent event) {
         if (currentNumber.isBlank() && !isBinaryOperatorChosen) {
             return;
         }
@@ -56,7 +56,7 @@ public class Controller {
     }
 
     @FXML
-    public void processEqualsAndClear(ActionEvent event) {
+    private void processEqualsAndClear(ActionEvent event) {
         String value = ((Button) event.getSource()).getText();
         if (currentNumber.isBlank() && value.equals("=")) {
             return;
